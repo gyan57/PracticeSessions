@@ -82,14 +82,15 @@ public class DSTestCases {
 		
 		MyLinkedList head = new MyLinkedList();
 		
-		head.insertAfterNth(0,3);
-		head.insertAfterNth(1,5);
-		head.insertAfterNth(2,4);
-		head.insertAfterNth(3,2);
-		head.insertAfterNth(1,10);
+		head.insertAtFirst(1);
+		head.insertAtLast(5);
+		head.insertAtLast(4);
+		head.insertAtLast(5);
+		head.insertAtLast(4);
+		head.insertAtLast(1);
 		head.findSize();
 		head.print();
-		head.reverseUsingIterative();
+		head.removeDuplicates();
 		head.print();
 	}
 	
@@ -202,6 +203,7 @@ public class DSTestCases {
 		root = btree.insertBNode(root,9);
 		root = btree.insertBNode(root,2);
 		root = btree.insertBNode(root,4);
+		root = btree.insertBNode(root,8);
 		
 		btree.inOrderTraversal(root);
 		System.out.print("\n");
@@ -232,7 +234,7 @@ public class DSTestCases {
 		
 		//simpleList();
 		
-		//linkedList();
+		linkedList();
 		
 		//circularLinkedList();
 		
@@ -246,7 +248,7 @@ public class DSTestCases {
 		
 		//hashmap();
 		
-		binaryNode();
+		//binaryNode();
 		
 	}
 }

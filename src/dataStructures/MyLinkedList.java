@@ -145,6 +145,30 @@ public class MyLinkedList {
 		head = reverseNode;
 		
 	}
+	//this only works when LL are in increasing order.
+	public void removeDuplicates() {
+		
+		if(head == null){
+            System.out.println("No Nodes");;
+        } else {
+            Node current = head;
+            while(current.node != null) {
+                Node temp = current.node;
+                while(temp.node !=null) {
+                    if(current.data == temp.data) {
+                        current.node = temp.node;
+                    } 
+                    temp = temp.node;
+                }
+                if(temp.node == null && current.data == temp.data) {
+                	current.node = null;
+                } else {
+                	current = current.node;
+                }
+               // current = current.node;
+            }
+        }
+	}
 	
 	public void reverseUsingRecursion() {
 		

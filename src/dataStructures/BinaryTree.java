@@ -193,7 +193,12 @@ public class BinaryTree {
 		return minData;
 	}
 	
-	public void delteNode(int x) {
+	public void deleteNode(BinaryNode root, int x) {
 		
+		if(root == null) {
+			System.out.println("No Leafs in the tree");
+		} else {
+			
+		}
 	}
 }
