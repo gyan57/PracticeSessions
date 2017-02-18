@@ -217,10 +217,49 @@ public class DSTestCases {
 		System.out.print(btree.searchNode(root, 13));
 		
 		System.out.print("\n");
-		System.out.print("Max data is " + btree.maxNode(root));
+		System.out.print("Max data is " + btree.maxNode(root).data);
 		System.out.print("\n");
-		System.out.print("Min data is " + btree.minNode(root));
+		System.out.print("Min data is " + btree.minNode(root).data);
+		btree.deleteNode(root, 3);
+		System.out.print("\n");
+		btree.levelOrderTraversal(root);
 		System.out.println("\n" + btree.depthOftree(root));
+	}
+	
+public static void RBbinaryNode() {
+		
+	RBBinarySearchTree rbbtree = new RBBinarySearchTree();
+		
+		RBNode root = null;
+		
+		root = rbbtree.insertNode(root,4);
+		root = rbbtree.insertNode(root,2);
+		root = rbbtree.insertNode(root,3);
+		//root = rbbtree.insertNode(root,4);
+		/*root = rbbtree.insertNode(root,5);
+		root = rbbtree.insertNode(root,6);
+		root = rbbtree.insertNode(root,7);
+		root = rbbtree.insertNode(root,8);
+		root = rbbtree.insertNode(root,9);
+		root = rbbtree.insertNode(root,10);
+		root = rbbtree.insertNode(root,11);
+		root = rbbtree.insertNode(root,12);
+		root = rbbtree.insertNode(root,13);
+		root = rbbtree.insertNode(root,14);
+		root = rbbtree.insertNode(root,15);
+		root = rbbtree.insertNode(root,16);
+		root = rbbtree.insertNode(root,17);
+		root = rbbtree.insertNode(root,18);*/
+		
+		rbbtree.leverOrder(root);
+		//root = rbbtree.rotationLeft(root);
+		//System.out.print("\n");
+		//rbbtree.leverOrder(root);
+		/*root = rbbtree.rotationLeft(root);
+		System.out.print("\n");
+		rbbtree.inOrder(root);
+		root = rbbtree.rotationLeft(root);*/
+		
 	}
 	
 	public static void main(String[] args) {
@@ -234,7 +273,7 @@ public class DSTestCases {
 		
 		//simpleList();
 		
-		linkedList();
+		//linkedList();
 		
 		//circularLinkedList();
 		
@@ -249,6 +288,8 @@ public class DSTestCases {
 		//hashmap();
 		
 		//binaryNode();
+		
+		RBbinaryNode();
 		
 	}
 }

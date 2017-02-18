@@ -164,41 +164,59 @@ public class BinaryTree {
 		}
 	}
 	
-	public int maxNode(BinaryNode root){
+	public BinaryNode maxNode(BinaryNode root){
 		
-		int maxData = 0;
+		BinaryNode maxdata = null;
 		if(root == null) {
 			System.out.print("No elements in the tree.");
 		} else {
 			if(root.right != null) {
-				maxData = maxNode(root.right);
+				maxdata = maxNode(root.right);
 			} else {
-				maxData = root.data;
+				maxdata = root;
 			}
 		}
-		return maxData;
+		return maxdata;
 	}
 	
-	public int minNode(BinaryNode root) {
-		int minData = 0;
+	public BinaryNode minNode(BinaryNode root) {
+		
+		BinaryNode minnode = null;
 		if(root == null){
 			System.out.print("No elements in the tree.");
 		} else {
 			if(root.left != null){
-				minData = minNode(root.left);
+				minnode = minNode(root.left);
 			} else {
-				minData = root.data;
+				minnode = root;
 			}
 		}
-		return minData;
+		return minnode;
 	}
 	
-	public void deleteNode(BinaryNode root, int x) {
+	public BinaryNode deleteNode(BinaryNode root, int x) {
 		
 		if(root == null) {
 			System.out.println("No Leafs in the tree");
 		} else {
-			
+			if(root.data == x) {
+				if(root.left == null && root.right == null) {
+					root = null;
+				} else if(root.left == null && root.right != null) {
+					root = root.right;
+				} else if(root.left != null && root.right == null) {
+					root = root.left;
+				} else if(root.left != null && root.right != null) {
+					BinaryNode temp = minNode(root.right);
+					root.data = temp.data;
+					root.right = deleteNode(root.right, root.data);
+				}
+			} else if(root.data > x) {
+				root.left = deleteNode(root.left, x);
+			} else if(root.data < x) {
+				root.right = deleteNode(root.right, x);
+			}
 		}
+		return root;
 	}
 }

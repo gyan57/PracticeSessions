@@ -115,9 +115,7 @@ public class Map<K, V> {
 					add(headNode.key, headNode.value);
 					headNode = headNode.next;
 				}
-			}
-			
+			}			
 		}
-	}
-	
+	}	
 }
