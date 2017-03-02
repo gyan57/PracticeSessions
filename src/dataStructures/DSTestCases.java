@@ -271,22 +271,22 @@ public static void RBbinaryNode() {
 		
 		AVLNode root = null;
 		
-		root = avlbtree.insertNode(root, 5);
-		root = avlbtree.insertNode(root, 2);
-		root = avlbtree.insertNode(root, 8);
-		root = avlbtree.insertNode(root, 4);
 		root = avlbtree.insertNode(root, 1);
+		root = avlbtree.insertNode(root, 2);
 		root = avlbtree.insertNode(root, 3);
-/*		root = avlbtree.insertNode(root, 7);
+		root = avlbtree.insertNode(root, 4);
+		root = avlbtree.insertNode(root, 5);
+		root = avlbtree.insertNode(root, 6);
+		root = avlbtree.insertNode(root, 7);
 		root = avlbtree.insertNode(root, 8);
 		root = avlbtree.insertNode(root, 9);
 		root = avlbtree.insertNode(root, 10);
-		*/
+		
 		System.out.print("\n");
 		avlbtree.levelOrderDisply(root);
-		/*System.out.print("\n");
-		root = avlbtree.rotateRight(root);
-		avlbtree.levelOrderDisply(root);*/
+		System.out.print("\n");
+		root = avlbtree.deleteNode(root, 9);
+		avlbtree.levelOrderDisply(root);
 	}
 	
 	public static void main(String[] args) {

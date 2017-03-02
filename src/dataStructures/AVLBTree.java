@@ -45,6 +45,59 @@ public class AVLBTree {
 		}
 		return root;
 	}
+	
+	//Delete and correct Nodes
+	public AVLNode deleteNode(AVLNode root, int x) {
+		
+		AVLNode nodeToReplace = searchNode(root, x);
+		AVLNode parent = null;
+		AVLNode nodeToDelete = null;
+		
+		if(nodeToReplace != null) {
+			nodeToDelete = getMax(nodeToReplace.left);
+			if(nodeToDelete == null) {
+				nodeToDelete = getMin(nodeToReplace.right);
+				if(nodeToDelete == null) {
+					parent = nodeToReplace.parent;
+					if(isRightChild(nodeToReplace))
+						nodeToReplace.parent.right = null;
+					if(isLeftChild(nodeToReplace))
+						nodeToReplace.parent.left = null;
+					nodeToReplace = null;
+					if(nodeToDelete != root)
+						root = correctHeight(root, parent);
+					root = correctHeight(root, parent);
+				}
+				parent = nodeToDelete.parent;
+				nodeToReplace.data = nodeToDelete.data;
+				if(isRightChild(nodeToDelete)) {
+					nodeToDelete.parent.right = nodeToDelete.right;
+				} else {
+					nodeToDelete.parent.left = nodeToDelete.right;
+				}
+				if(nodeToDelete.right != null)
+					nodeToDelete.right.parent = nodeToDelete.parent;
+				if(nodeToDelete != root)
+					root = correctHeight(root, parent);
+				root = correctHeight(root, parent);
+				return root;
+			}
+			parent = nodeToDelete.parent;
+			nodeToReplace.data = nodeToDelete.data;
+			if(isLeftChild(nodeToDelete)) {
+				nodeToDelete.parent.left = nodeToDelete.left;
+			} else {
+				nodeToDelete.parent.right = nodeToDelete.left;
+			}
+			if(nodeToDelete.left != null)
+				nodeToDelete.left.parent = nodeToDelete.parent;
+			if(nodeToDelete != root)
+				root = correctHeight(root, parent);
+			return root;
+		}
+		return root;
+	}
+	
 	//Calcualte height of Nodes 
 	public void calculateHeightOfNodes(AVLNode root,AVLNode newNode) {
 		if(newNode == root) {
@@ -278,4 +331,86 @@ public class AVLBTree {
 		}
 		
 	}
+	
+	//predecessor and sucessor
+	public AVLNode preDecessorNode(AVLNode ref){
+		
+		AVLNode preDec = null;
+		if(ref == null) {
+			return ref;
+		} else {
+			if(ref.left != null) {
+				preDec = getMax(ref.left);
+				return preDec;
+			} else {
+				return ref;
+			}
+		}	
+	}
+	
+	public AVLNode sucessorNode(AVLNode ref) {
+		
+		AVLNode suce = null;
+		if(ref == null) {
+			return ref;
+		} else {
+			if(ref.right != null) {
+				suce = getMin(ref.right);
+				return suce;
+			} else {
+				return ref;
+			}
+		}
+		
+	}
+	
+	//getMax and Min under a tree from ref node
+	public AVLNode getMax(AVLNode root) {
+		
+		AVLNode max = null;
+		if(root == null) {
+			return root;
+		} else {
+			if(root.right != null) {
+				max = getMax(root.right);
+				return max;
+			} else {
+				return root;
+			}		
+		}
+	}
+	
+	public AVLNode getMin(AVLNode root) {
+		
+		AVLNode min = null;
+		
+		if(root == null) {
+			return root;
+		} else {
+			if(root.left != null) {
+				min = getMin(root.left);
+				return min;
+			} else {
+				return root;
+			}		
+		}
+	}
+	
+	//Search Node
+	public AVLNode searchNode(AVLNode root, int x) {
+		
+		AVLNode foundNode = null;
+		if(root == null) {
+			return root;
+		} else {
+			if(x > root.data) 
+				foundNode = searchNode(root.right, x);
+			if(x < root.data) 
+				foundNode = searchNode(root.left, x);
+			if(x == root.data)
+				foundNode = root;
+		}
+		return foundNode;
+	}
+	
 }
