@@ -12,7 +12,150 @@ public class RBBinarySearchTree {
 		RBNode newNode = new RBNode();
 		newNode.data = x;
 		root = insertBTNode(root, newNode);
-		root = adjustColor(root, newNode);
+		root = adjustInsertColor(root, newNode);
+		return root;
+	}
+	
+	public RBNode getMin(RBNode root) {
+		
+		if(root == null) {
+			return root;
+		} else {
+			if(root.left != null) {
+				root = getMin(root.left);
+			} 			
+			return root;
+		}
+	}
+	
+	public RBNode getMax(RBNode root) {
+		
+		if(root == null) {
+			return root;
+		} else {
+			if(root.right != null) {
+				root = getMax(root.right);
+			} else {
+				return root;
+			}
+		}
+		
+		return root;
+	}
+	
+	public RBNode searchNode(RBNode root, int x) {
+		
+		if(root == null) {
+			return root;
+		} else {
+			if(x > root.data) {
+				root = searchNode(root.right, x);
+			} else if(x < root.data)  {
+				root = searchNode(root.left, x);
+			} else if(root.data == x) {
+				return root;
+			}
+			return root;
+		}
+	}
+	
+	public RBNode deleteNode(RBNode root, int x) {
+		
+		RBNode replaceNode = new RBNode();
+		RBNode nodeToDelete = searchNode(root,x);
+
+		replaceNode = getMax(nodeToDelete.left);
+		
+		RBNode sibling = new RBNode();
+		
+		if(replaceNode.parent.left == replaceNode) {
+			sibling = replaceNode.parent.right;
+		} else {
+			sibling = replaceNode.parent.left;
+		}
+		
+		if(replaceNode.left == null) {
+			nodeToDelete.data = replaceNode.data;
+			replaceNode.parent.right = null;
+		} else {
+			nodeToDelete.data = replaceNode.data;
+			replaceNode.parent.right = replaceNode.left;
+			replaceNode.left.parent = replaceNode.parent;
+			if(replaceNode.color == nodeColor.BLACK && replaceNode.left.color == nodeColor.RED)
+				replaceNode.parent.right.color = nodeColor.BLACK;
+			return root;
+		}
+		
+		root = correctDeleteColor(root, sibling, replaceNode);
+		
+		return root;
+	}
+	
+	public RBNode correctDeleteColor(RBNode root, RBNode sibling, RBNode  replaceNode) {
+		
+		if(replaceNode == root) {
+			root.color = nodeColor.BLACK;
+			return root;
+		}
+		
+		if(replaceNode.color == nodeColor.RED || sibling == null){
+			return root;
+		}
+		 
+		if(sibling.color == nodeColor.BLACK && replaceNode.color == nodeColor.BLACK) {
+			if((sibling.left.color == nodeColor.BLACK || sibling.left== null) && (sibling.right.color == nodeColor.BLACK || sibling.right == null)) {
+				if(sibling.parent.color == nodeColor.RED) {
+					sibling.parent.color = nodeColor.BLACK;
+					sibling.color = nodeColor.RED;
+				} else {
+					sibling.color = nodeColor.RED;
+					if(sibling.parent == root) {
+						return root;
+					} else {
+						if(sibling.parent.left == sibling) {
+							sibling = sibling.parent.right;
+						} else {
+							sibling = sibling.parent.left;
+						}
+						root = correctDeleteColor(root,sibling,sibling.parent);
+					}
+				}
+			} else if((sibling.left.color == nodeColor.RED) && (sibling.right.color == nodeColor.BLACK || sibling.right == null)) {
+				
+				if(sibling.parent.right == sibling) {
+					sibling = rotationLeft(sibling);
+					sibling.color = nodeColor.BLACK;
+					sibling.right.color = nodeColor.RED;
+				}
+				sibling.parent = rotationRight(sibling.parent);
+				sibling.parent.color = nodeColor.BLACK;
+				sibling.parent.left.color = nodeColor.BLACK;
+				sibling.parent.right.color =nodeColor.BLACK;
+				
+			}else if((sibling.left.color == nodeColor.BLACK || sibling.left == null) && (sibling.right.color == nodeColor.RED)) {
+				
+				if(sibling.parent.left == sibling) {
+					sibling = rotationRight(sibling);
+					sibling.color = nodeColor.BLACK;
+					sibling.right.color = nodeColor.RED;
+				}
+				sibling.parent = rotationLeft(sibling.parent);
+				sibling.parent.color = nodeColor.BLACK;
+				sibling.parent.left.color = nodeColor.BLACK;
+				sibling.parent.right.color =nodeColor.BLACK;		
+			}
+		} else if(sibling.color == nodeColor.RED && replaceNode.color == nodeColor.BLACK) {
+			if(sibling.parent.left == sibling) {
+				sibling.parent = rotationRight(sibling.parent);
+				sibling.parent.color = nodeColor.BLACK;
+				sibling.right.color = nodeColor.RED;
+			} else {
+				sibling.parent = rotationLeft(sibling.parent);
+				sibling.parent.color = nodeColor.BLACK;
+				sibling.left.color = nodeColor.RED;
+			}
+		}
+		
 		return root;
 	}
 	
@@ -30,8 +173,7 @@ public class RBBinarySearchTree {
 					root.right = newNode;
 				} else {
 					current = insertBTNode(root.right, newNode);
-					root.right = current;
-					
+					root.right = current;	
 				}
 			}
 			if(newNode.data < root.data){
@@ -47,7 +189,7 @@ public class RBBinarySearchTree {
 		return root;
 	}
 	
-	public RBNode adjustColor(RBNode root, RBNode newNode) {
+	public RBNode adjustInsertColor(RBNode root, RBNode newNode) {
 		
 		RBNode parent = newNode.parent;
 		RBNode grandParent = new RBNode();
@@ -77,6 +219,7 @@ public class RBBinarySearchTree {
 							if(grandParent.parent == null) {
 								return grandParent;
 							} else {
+								root = adjustInsertColor(root, grandParent);
 								return root;
 							}
 						} else {
@@ -87,6 +230,7 @@ public class RBBinarySearchTree {
 							if(grandParent.parent == null) {
 								return grandParent;
 							} else {
+								root = adjustInsertColor(root, grandParent);
 								return root;
 							}
 						}	
@@ -101,6 +245,7 @@ public class RBBinarySearchTree {
 							if(grandParent.parent == null) {
 								return grandParent;
 							} else {
+								root = adjustInsertColor(root, grandParent);
 								return root;
 							}
 						} else {
@@ -111,6 +256,7 @@ public class RBBinarySearchTree {
 							if(grandParent.parent == null) {
 								return grandParent;
 							} else {
+								root = adjustInsertColor(root, grandParent);
 								return root;
 							}
 						}
@@ -124,7 +270,7 @@ public class RBBinarySearchTree {
 						return grandParent;
 					} else {
 						if(grandParent.color == nodeColor.RED && grandParent.parent.color == nodeColor.RED) {
-							root = adjustColor(root, grandParent);
+							root = adjustInsertColor(root, grandParent);
 							return root;
 						}
 					}

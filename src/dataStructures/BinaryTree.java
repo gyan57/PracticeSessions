@@ -207,9 +207,9 @@ public class BinaryTree {
 				} else if(root.left != null && root.right == null) {
 					root = root.left;
 				} else if(root.left != null && root.right != null) {
-					BinaryNode temp = minNode(root.right);
+					BinaryNode temp = predecessorNode(root);
 					root.data = temp.data;
-					root.right = deleteNode(root.right, root.data);
+					root.left = deleteNode(root.left, root.data);
 				}
 			} else if(root.data > x) {
 				root.left = deleteNode(root.left, x);
@@ -218,5 +218,14 @@ public class BinaryTree {
 			}
 		}
 		return root;
+	}
+	
+	public BinaryNode predecessorNode(BinaryNode root) {
+		
+		if(root == null) {
+			return root;
+		} else {
+			return maxNode(root.left);
+		}
 	}
 }

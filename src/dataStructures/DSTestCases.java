@@ -232,13 +232,13 @@ public static void RBbinaryNode() {
 		
 		RBNode root = null;
 		
-		root = rbbtree.insertNode(root,4);
+		root = rbbtree.insertNode(root,5);
 		root = rbbtree.insertNode(root,2);
+		root = rbbtree.insertNode(root,8);
+		root = rbbtree.insertNode(root,4);
+		root = rbbtree.insertNode(root,1);
 		root = rbbtree.insertNode(root,3);
-		//root = rbbtree.insertNode(root,4);
-		/*root = rbbtree.insertNode(root,5);
-		root = rbbtree.insertNode(root,6);
-		root = rbbtree.insertNode(root,7);
+		/*root = rbbtree.insertNode(root,7);
 		root = rbbtree.insertNode(root,8);
 		root = rbbtree.insertNode(root,9);
 		root = rbbtree.insertNode(root,10);
@@ -252,6 +252,9 @@ public static void RBbinaryNode() {
 		root = rbbtree.insertNode(root,18);*/
 		
 		rbbtree.leverOrder(root);
+		/*root = rbbtree.deleteNode(root, 5);
+		System.out.print("\n");
+		rbbtree.leverOrder(root);*/
 		//root = rbbtree.rotationLeft(root);
 		//System.out.print("\n");
 		//rbbtree.leverOrder(root);
@@ -260,6 +263,30 @@ public static void RBbinaryNode() {
 		rbbtree.inOrder(root);
 		root = rbbtree.rotationLeft(root);*/
 		
+	}
+
+	public static void AVLBTNode() {
+		
+		AVLBTree avlbtree = new AVLBTree();
+		
+		AVLNode root = null;
+		
+		root = avlbtree.insertNode(root, 5);
+		root = avlbtree.insertNode(root, 2);
+		root = avlbtree.insertNode(root, 8);
+		root = avlbtree.insertNode(root, 4);
+		root = avlbtree.insertNode(root, 1);
+		root = avlbtree.insertNode(root, 3);
+/*		root = avlbtree.insertNode(root, 7);
+		root = avlbtree.insertNode(root, 8);
+		root = avlbtree.insertNode(root, 9);
+		root = avlbtree.insertNode(root, 10);
+		*/
+		System.out.print("\n");
+		avlbtree.levelOrderDisply(root);
+		/*System.out.print("\n");
+		root = avlbtree.rotateRight(root);
+		avlbtree.levelOrderDisply(root);*/
 	}
 	
 	public static void main(String[] args) {
@@ -290,6 +317,8 @@ public static void RBbinaryNode() {
 		//binaryNode();
 		
 		RBbinaryNode();
+		
+		AVLBTNode();
 		
 	}
 }
